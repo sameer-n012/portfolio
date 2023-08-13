@@ -63,9 +63,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# editor
 *.idea
 /out
 /bin
 *.vscode
 *.editorconfig
 
+# images
+*.xcf
+src/assets/images/*
