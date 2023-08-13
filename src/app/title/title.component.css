@@ -1,0 +1,16 @@
+#name {
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+#tagline {
+    font-size: 2rem;
+    font-weight: 300
+}
+
+#portrait-img {
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: top;
+    margin-right: 10rem;
+}

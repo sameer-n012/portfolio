@@ -1,0 +1,39 @@
+#main {
+    padding: 5rem;
+    height:5000px;
+    z-index: 1;
+}
+
+/* .section {
+    position: relative;
+    max-width: 920px;
+    min-height: 75vh;
+    padding: 40px;
+    margin: auto;
+    background-color: #48c9b0;
+    color: #ffffff;
+} */
+
+#bg-static {
+    position: relative;
+    background-color: #000000;
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+}
+
+#bg-dynamic {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: auto;
+    width: 100%;
+    background-image: url("src/assets/images/ss1-compressed.jpg");
+    /* background-size: resize; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position-x: -1400px;
+    background-size: 200%;
+    background-position-y: -3000px;
+    z-index: -1;
+}
