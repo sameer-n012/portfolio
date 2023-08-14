@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { interval, takeWhile } from 'rxjs';
 import * as $ from 'jquery';
 import profileDetails from 'src/assets/profileDetails';
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-title',
@@ -11,6 +13,16 @@ import profileDetails from 'src/assets/profileDetails';
 export class TitleComponent implements OnInit{
 
     imgpath = 'assets/images/' + profileDetails['profileImgName'];
+
+    socials = [
+        {icon: faEnvelope, url: 'mailto:' + profileDetails['email']},
+        {icon: faLinkedin, url: profileDetails['linkedinURL']},
+        {icon: faGithub, url: profileDetails['githubURL']}
+    ]
+
+    constructor() {
+        return;
+    }
 
     ngOnInit() {
         // interval(1000).pipe(takeWhile(() => !stop))
@@ -31,8 +43,7 @@ export class TitleComponent implements OnInit{
                 var topdiff = windowTop - elementTop;
                 
 
-                var opacity = (100 - Math.min(Math.max(topdiff/3, 0), 100))/100
-                console.log(opacity)
+                var opacity = (100 - Math.min(Math.max(topdiff/5, 0), 100))/100
                 
                 $('#scroll-down-chevron')
                 .css('opacity', (opacity).toString());
@@ -43,4 +54,19 @@ export class TitleComponent implements OnInit{
         
         })
     }
+
+    public scrollTo(elementId: string) {
+        if (elementId.startsWith('#')) {
+            elementId = elementId.substring(1)
+        }
+
+        let el = document.getElementById(elementId);
+        if(el != undefined && el != null) {
+            console.log('Scrolling to table of contents');
+            el.scrollIntoView();
+        } else {
+            console.log("Cannot scroll to non-existing element #" + elementId)
+        }
+    }
 }
+

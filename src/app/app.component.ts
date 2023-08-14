@@ -34,7 +34,9 @@ export class AppComponent implements OnInit {
                     });
             });
         });
-        console.log($('#main').width());
+        // console.log($('#main').width());
+
+
     }
 }
 

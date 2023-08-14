@@ -1,0 +1,21 @@
+<div id="toc-div" class="w-100 flex-column d-flex align-items-end">
+    <div id="toc-inner-div" class="flex-column d-flex align-items-end">
+        <div
+            *ngFor="let s of this.sections"
+            class="toc-item-div text-c1 d-flex"
+        >
+            <p class="toc-item" (click)="this.scrollTo(s.divID)">
+                {{ s.name }}
+            </p>
+            &nbsp; &lt;
+        </div>
+        <!-- <div class="toc-item-div text-c1 d-flex">
+        <p class="toc-item ">Section 2</p>
+        &nbsp; &lt;
+    </div>
+    <div class="toc-item-div text-c1 d-flex">
+        <p class="toc-item ">Section 3</p>
+        &nbsp; &lt;
+    </div> -->
+    </div>
+</div>
