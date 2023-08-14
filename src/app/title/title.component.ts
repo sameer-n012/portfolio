@@ -20,6 +20,8 @@ export class TitleComponent implements OnInit{
         {icon: faGithub, url: profileDetails['githubURL']}
     ]
 
+    resumeURL = profileDetails['resumeURL'];
+
     constructor() {
         return;
     }

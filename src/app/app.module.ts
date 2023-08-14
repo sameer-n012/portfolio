@@ -8,9 +8,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TitleComponent } from './title/title.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TocComponent } from './toc/toc.component';
+import { SkillsComponent } from './skills/skills.component';
+import { ExperienceComponent } from './experience/experience.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-    declarations: [AppComponent, ProjectCardComponent, TitleComponent, TocComponent],
+    declarations: [AppComponent, ProjectCardComponent, TitleComponent, TocComponent, SkillsComponent, ExperienceComponent, ProjectsComponent, FooterComponent],
     imports: [BrowserModule, AppRoutingModule, NgbModule, FontAwesomeModule],
     providers: [],
     bootstrap: [AppComponent],

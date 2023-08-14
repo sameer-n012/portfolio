@@ -1,0 +1,16 @@
+#projects-div {
+    padding: 10rem;
+}
+
+#projects-inner-div {
+    width: 100%;
+}
+
+#projects-inner-div h1 {
+    border-bottom: 5px solid #38BDAE;
+}
+
+#projects-inner-div p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}

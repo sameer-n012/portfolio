@@ -1,18 +1,8 @@
 #main {
     padding: 5rem;
-    height:5000px;
+    /* height:5000px; */
     position: relative;
 }
-
-/* .section {
-    position: relative;
-    max-width: 920px;
-    min-height: 75vh;
-    padding: 40px;
-    margin: auto;
-    background-color: #48c9b0;
-    color: #ffffff;
-} */
 
 #bg-static {
     position: relative;
