@@ -8,9 +8,10 @@
                     <button ngbNavLink>{{e.position}}</button>
                     <ng-template ngbNavContent>
                         <p class="experience-position-company-time text-light">{{e.time}} @ {{e.company}}</p>
-                        <p class="experience-position-description text-light">
-                            {{e.description}}
-                        </p>
+                        <ul class="experience-position-description text-light">
+                            <li *ngFor="let d of e.description">{{parseDescription(d)}}</li>
+                        </ul>
+                        <p class="text-light experience-position-skills">Skills: {{e.skills.join(', ')}}</p>
                     </ng-template>
                 </ng-container>
             </div>

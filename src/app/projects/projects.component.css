@@ -14,3 +14,21 @@
     font-size: 1.2rem;
     font-weight: 300;
 }
+
+#projects-search-bar {
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 0.3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: #dddddd;
+}
+
+#projects-search-btn {
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 0.3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    aspect-ratio: 1;
+}

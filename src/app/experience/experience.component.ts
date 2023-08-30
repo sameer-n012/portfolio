@@ -12,6 +12,11 @@ export class ExperienceComponent {
     experiences = getAllExperiences().filter((e) => e.featured).reverse();
     active = this.experiences[0]._id.toString();
 
+
+    parseDescription(desc: string) {
+        return desc;
+    }
+
     
 
 

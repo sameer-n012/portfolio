@@ -27,3 +27,13 @@ a {
 .border-thick-c1 {
     border: 5px solid #38BDAE;
 }
+
+.link-disabled {
+	pointer-events: none;
+	cursor: default;
+	color: lightgray !important;
+}
+
+.cursor-clickable {
+	cursor: pointer;
+}
