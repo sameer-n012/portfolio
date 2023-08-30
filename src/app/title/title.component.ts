@@ -22,6 +22,8 @@ export class TitleComponent implements OnInit{
 
     resumeURL = profileDetails['resumeURL'];
 
+    taglines = ['build apps', 'explore data', 'find solutions']
+
     constructor() {
         return;
     }
@@ -55,6 +57,38 @@ export class TitleComponent implements OnInit{
             });
         
         })
+
+        var lines = this.taglines;
+        var c = 1;
+        var tagline_el = document.getElementById("tagline-replace")!;
+        const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+        updateTagline();
+
+        async function updateTagline() {
+            
+            while(true) {
+
+                let curtext = tagline_el.innerHTML;
+                
+                while(curtext !== '') {
+                    await sleep(Math.floor(Math.random()*50+50));
+                    curtext = curtext.substring(0, curtext.length-1)
+                    tagline_el.innerHTML = curtext;
+                }
+                
+                await sleep(1000);
+
+                for(let i = 0; i < lines[c].length; i++) {
+                    await sleep(Math.floor(Math.random()*100+50));
+                    curtext += lines[c][i];
+                    tagline_el.innerHTML = curtext;
+                }
+
+                c = (c+1)%lines.length;
+
+                await sleep(3000);
+            }
+        }
     }
 
     public scrollTo(elementId: string) {

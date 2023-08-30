@@ -3,7 +3,8 @@ const experiences = [
 		_id: 0,
 		position: 'Data Science Engineering Intern',
         company: 'Teradata',
-        time: 'May 2022 - August 2022',
+        time: new Date('2022-05-22'),
+        formattedTime: 'May 2022 - August 2022',
 		description: [
             'Built hyperparameter tuning framework for Teradata machine learning functions',
             'Researched hyperparameter tuning methods including Grid Search, Random Search, & Bayesian Search',
@@ -23,7 +24,8 @@ const experiences = [
 		_id: 1,
 		position: 'Analytic Software Engineering Intern',
         company: 'Teradata',
-        time: 'May 2023 - August 2023',
+        time: new Date('2023-05-22'),
+        formattedTime: 'May 2023 - August 2023',
 		description: [
             'Designed enterprise feature store service architecture',
             'Designed methods for storing feature metadata and retrieving customer data',

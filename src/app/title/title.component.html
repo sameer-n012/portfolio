@@ -10,17 +10,24 @@
             alt="my portrait"
         />
         <div>
-            <h1 class="text-c1" id="name">Sameer Narendran</h1>
-            <p class="text-c1" id="tagline">I like to build things</p>
+            <h1 class="text-c1 fira-code" id="name">Sameer Narendran</h1>
+            <div class="d-flex flex-row">
+                <p class="text-c1 fira-code" id="tagline">I like to&nbsp;</p>
+                <p id="tagline-replace" class="text-c1 fira-code">
+                    {{ taglines[0] }}
+                </p>
+            </div>
             <div id="title-socials-div" class="text-light d-flex">
-                <a *ngFor="let s of this.socials" [href]="s.url" target="_blank" class="me-4">
-                <fa-icon
-                    class="title-social"
-                    [icon]="s.icon"
-                ></fa-icon>
+                <a
+                    *ngFor="let s of this.socials"
+                    [href]="s.url"
+                    target="_blank"
+                    class="me-4"
+                >
+                    <fa-icon class="title-social" [icon]="s.icon"></fa-icon>
                 </a>
                 <a [href]="resumeURL" target="_blank">
-                    <p class="title-social" >Resume</p>
+                    <p class="title-social">Resume</p>
                 </a>
             </div>
         </div>

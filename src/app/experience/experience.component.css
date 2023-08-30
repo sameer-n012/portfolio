@@ -33,13 +33,15 @@
 }
 
 .experience-position-company-time {
-    font-size: 1.2rem!important;
+    font-size: 1.4rem!important;
+    font-weight: 400;
 }
 
 .experience-position-description {
-    font-size: 1rem!important;
+    font-size: 1.2rem!important;
+    font-weight: 300;
 }
 
 .experience-position-skills {
-    font-size: 1rem!important;
+    font-size: 1.2rem!important;
 }
