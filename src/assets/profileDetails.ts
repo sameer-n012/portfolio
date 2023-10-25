@@ -3,7 +3,8 @@ const profileDetails = {
     profileImgName: 'portrait.jpeg',
     linkedinURL: 'https://linkedin.com/in/sameer-narendran',
     githubURL: 'https://github.com/sameer-n012',
-    resumeURL: 'https://drive.google.com/file/d/1DAvo7yurIF6XlGv5TtwE01F_2SnpUQnF/view',
+    resumeURL: './assets/resume.pdf',
+    driveResumeURL: 'https://drive.google.com/file/d/1DAvo7yurIF6XlGv5TtwE01F_2SnpUQnF/view',
     projectSourceURL: 'https://github.com/sameer-n012/portfolio-v2',
     aboutMe:
         "I'm Sameer Narendran, a second-year student at the University of \
