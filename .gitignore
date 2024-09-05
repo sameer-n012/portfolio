@@ -71,5 +71,5 @@ yarn-error.log*
 *.editorconfig
 
 # images
-*.xcf
-src/assets/images/*
+# *.xcf
+# src/assets/images/*
