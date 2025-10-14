@@ -1,0 +1,40 @@
+<div id="title-div">
+    <div
+        [ngStyle]="{ marginTop: '10rem' }"
+        class="d-flex justify-content-between align-items-center flex-wrap flex-row-reverse"
+    >
+        <img
+            src="{{ imgpath }}"
+            id="portrait-img"
+            class="rounded-circle border-thick-c1"
+            alt="my portrait"
+        />
+        <div>
+            <h1 class="text-c1 fira-code" id="name">Sameer Narendran</h1>
+            <div class="d-flex flex-row">
+                <p class="text-c1 fira-code" id="tagline">I like to&nbsp;</p>
+                <p id="tagline-replace" class="text-c1 fira-code">
+                    {{ taglines[0] }}
+                </p>
+            </div>
+            <div id="title-socials-div" class="text-light d-flex">
+                <a
+                    *ngFor="let s of this.socials"
+                    [href]="s.url"
+                    target="_blank"
+                    class="me-4"
+                >
+                    <fa-icon class="title-social" [icon]="s.icon"></fa-icon>
+                </a>
+                <a [href]="resumeURL" target="_blank">
+                    <p class="title-social">Resume</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <img
+        id="scroll-down-chevron"
+        (click)="this.scrollTo('#toc-div')"
+        src="{{ 'assets/images/down_chevron.png' }}"
+    />
+</div>

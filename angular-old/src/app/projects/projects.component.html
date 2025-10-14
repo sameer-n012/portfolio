@@ -1,0 +1,38 @@
+<div id="projects-div">
+    <div id="projects-inner-div">
+        <h1 class="w-100 text-c1 p-2">Projects</h1>
+        <div class="w-100 d-flex justify-content-center flex-column">
+            <div
+                id="projects-search-div"
+                class="d-flex justify-content-center p-2 pt-3"
+            >
+                <input
+                    class="search-bar me-1 w-50"
+                    id="projects-search-bar"
+                    placeholder="Search"
+                    (keypress)="search_key_press($event, data.value)"
+                    value="{{ search_val }}"
+                    #data
+                />
+                <button
+                    id="projects-search-btn"
+                    type="submit"
+                    class="ms-1 background-c1"
+                    (click)="search(data.value)"
+                >
+                    <fa-icon [icon]="fa_search_icon" />
+                </button>
+            </div>
+            <div
+                class="project-cards p-2 pt-4 d-flex w-100 justify-content-evenly flex-wrap"
+            >
+                <app-project-card
+                    *ngFor="let p of proj_list"
+                    [project]="p"
+                    (tagClick)="tagClick($event)"
+                    class="p-3"
+                />
+            </div>
+        </div>
+    </div>
+</div>

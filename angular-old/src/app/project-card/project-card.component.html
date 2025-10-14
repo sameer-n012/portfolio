@@ -1,0 +1,30 @@
+<div class="card" class="project-card">
+    <img
+        class="card-img-top project-image cursor-clickable"
+        src="{{ 'assets/images/' + project.images[0] }}"
+        alt="Card image cap"
+    />
+    <div class="card-body p-0">
+        <h5 class="card-title p-2 m-0 pb-1 text-truncate cursor-clickable text-light">{{ project.name }}</h5>
+        <div class="card-text p-2 m-0 pt-1 project-tag-div text-truncate">
+            <small class="project-tag m-1 p-1 cursor-clickable" *ngFor="let t of project.tags" (click)="tagClick.emit(t)">{{
+                t
+            }}</small>
+        </div>
+        <div
+            class="card-footer m-0 p-2 d-flex justify-content-between align-items-center"
+        >
+            <a
+                href="{{profileDetails.githubURL + '/' + project.githubRepoName}}"
+                target="_blank"
+                rel='noopener noreferrer'
+                className="{{
+                    'small cursor-clickable project-footer-text m-0 fira-code' +
+                        (!project.githubRepoName ? ' link-disabled' : '')
+                }}"
+                >See Source Code 
+                <fa-icon [icon]="faAngleRight"></fa-icon>
+            </a>
+        </div>
+    </div>
+</div>

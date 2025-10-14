@@ -1,0 +1,25 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500&display=swap");
+
+* {
+    margin: 0;
+    font-family: "Fira Sans", sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: "Fira Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: "Fira Code", monospace;
+}
+
+a,
+a:hover {
+    color: inherit;
+    text-decoration: inherit;
+}

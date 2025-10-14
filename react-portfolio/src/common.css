@@ -1,0 +1,29 @@
+.text-c1 {
+    color: #38bdae;
+}
+
+.background-c1 {
+    background-color: #38bdae;
+}
+
+.border-c1 {
+    border: 2px solid #38bdae;
+}
+
+.border-thick-c1 {
+    border: 5px solid #38bdae;
+}
+
+.link-disabled {
+    pointer-events: none;
+    cursor: default;
+    color: lightgray !important;
+}
+
+.cursor-clickable {
+    cursor: pointer;
+}
+
+.fira-code {
+    font-family: "Fira Code", monospace;
+}

@@ -1,0 +1,35 @@
+.project-card {
+    background-color: #333333;
+    width: 18rem;
+}
+
+.project-card:hover {
+    transform:scale(1.05)
+}
+
+.project-tag {
+    background-color: #aaaaaa;
+    font-size: 0.75rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    /* white-space: nowrap; */
+}
+
+.project-tag-div {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+.project-image {
+	width: 17.8rem;
+	height: 12rem;
+	object-fit: cover;
+    width: 100%;
+    background-color: #ffffff;
+    filter: brightness(0.9)
+}
+
+.project-footer-text {
+    color: #dddddd
+}

@@ -1,0 +1,50 @@
+#experience-div {
+    padding: 10rem;
+}
+
+#experience-inner-div {
+    width: 75%;
+}
+
+#experience-inner-div h1 {
+    border-bottom: 5px solid #38BDAE;
+}
+
+#experience-inner-div p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+#experience-div .nav-link {
+    color: #f8f9fa;
+    text-align: right;
+    font-size: 1.2rem;
+    border-radius: 0;
+    border-right: 5px solid transparent;
+    background: none;
+    border: none;
+    border-right: 5px solid transparent;
+    padding: 0.5rem 1rem;
+    width: 100%;
+}
+
+#experience-div .nav-link.active {
+    background-color: transparent;
+    border-right-color: #38BDAE;
+    color: #38BDAE;
+    font-weight: 500;
+}
+
+.experience-position-company-time {
+    font-size: 1.4rem!important;
+    font-weight: 400;
+}
+
+.experience-position-description {
+    font-size: 1.2rem!important;
+    font-weight: 300;
+}
+
+.experience-position-skills {
+    font-size: 1.2rem!important;
+}

@@ -1,0 +1,43 @@
+#title-div {
+    min-height: 80vh
+}
+
+#name {
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+#tagline {
+    font-size: 2rem;
+    font-weight: 300
+}
+
+#tagline-replace {
+    font-size: 2rem;
+    font-weight: 300
+}
+
+.title-social {
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.title-social:hover {
+    filter: brightness(50%);
+}
+
+#portrait-img {
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: top;
+    margin-right: 10%;
+    width: 25rem;
+}
+
+#scroll-down-chevron {
+    position: absolute;
+    top: 84vh;
+    left: 46vw;
+    aspect-ratio: 1;
+    height: max(8vh, 50px);
+}

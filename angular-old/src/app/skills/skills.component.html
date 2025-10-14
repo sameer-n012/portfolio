@@ -1,0 +1,18 @@
+<div id="skills-div">
+    <div id="skills-inner-div">
+        <h1 class="w-100 text-c1 p-2">Skills</h1>
+        <p class="text-light p-2">{{ profileDetails["aboutMe"] }}</p>
+        <p class="text-light p-2">In the past I've worked with:</p>
+        <div class="d-flex p-2">
+            <div
+                class="col-sm-6 d-flex flex-column container-fluid"
+                *ngFor="let arr of this.skillsArr"
+            >
+                <div class="skill-table-row text-light d-flex" *ngFor="let s of arr">
+                    &gt; &nbsp; <p class="text-c1 skill-table-cell fira-code">{{s}}</p>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+</div>
