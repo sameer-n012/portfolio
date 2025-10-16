@@ -31,6 +31,23 @@ const experiences = [
         skills: ["Python", "SQLAlchemy", "Flask", "TeradataSQL"],
         featured: true,
     },
+    {
+        _id: 2,
+        position: "Undergraduate Research Assistant",
+        company: "University of Wisconsin-Madison",
+        time: new Date("2024-01-22"),
+        formattedTime: "Jan 2024 - Aug 2025",
+        description: [
+            "Explored whether Wisdom of the Crowds phenomenon applies to LLMs",
+            "Created custom 'guesstimation' dataset of Fermi-type questions",
+            "Ran dozens of open-source LLMs using PyTorch and a High Throughput Compute Cluster",
+            "Built data pipeline including checkpointing and caching systems",
+            "Evaluated LLMs using guesstimation methods including Greedy Decoding and Self-Consistency",
+            "Published 'Probing LLM World Models: Enhancing Guesstimation with Wisdom of Crowds Decoding' to NeurIPS Behavioral ML 2024, EMNLP 2025",
+        ],
+        skills: ["Python", "LLMs", "Data Analysis", "PyTorch"],
+        featured: true,
+    },
 ];
 
 function getAllExperiences() {

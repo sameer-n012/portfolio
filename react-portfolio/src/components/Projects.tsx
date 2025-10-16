@@ -4,7 +4,7 @@ import "./Projects.css";
 
 const Projects: React.FC = () => {
     const projects = getFeaturedProjects();
-    const [currentIdx, setCurrentIdx] = useState(0);
+    const [currentIdx, setCurrentIdx] = useState(3);
     const carouselInterval = useRef<NodeJS.Timeout | null>(null);
 
     // Helper for circular index
@@ -36,12 +36,13 @@ const Projects: React.FC = () => {
         }));
     };
 
+    const scrollIntervalMS = 4000;
+
     useEffect(() => {
-        const interval_ms = 4000;
         // autoscroll
         carouselInterval.current = setInterval(() => {
             setCurrentIdx((prev) => getCircularIdx(prev + 1));
-        }, interval_ms);
+        }, scrollIntervalMS);
         return () => {
             if (carouselInterval.current)
                 clearInterval(carouselInterval.current);
@@ -84,6 +85,27 @@ const Projects: React.FC = () => {
                                 //     if (idx !== currIdxInSurrounding)
                                 //         setCurrentIdx(item.actualIdx);
                                 // }}
+                                onMouseEnter={() => {
+                                    if (idx === currIdxInSurrounding) {
+                                        if (carouselInterval.current)
+                                            clearInterval(
+                                                carouselInterval.current,
+                                            );
+                                    }
+                                }}
+                                onMouseLeave={() => {
+                                    if (idx === currIdxInSurrounding) {
+                                        // autoscroll
+                                        carouselInterval.current = setInterval(
+                                            () => {
+                                                setCurrentIdx((prev) =>
+                                                    getCircularIdx(prev + 1),
+                                                );
+                                            },
+                                            scrollIntervalMS,
+                                        );
+                                    }
+                                }}
                             >
                                 <div className="projects-carousel-container">
                                     <div className="projects-carousel-title">

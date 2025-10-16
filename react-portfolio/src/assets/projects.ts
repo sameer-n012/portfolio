@@ -2,11 +2,12 @@ const projects = [
     {
         _id: 0,
         name: "Portfolio Website",
-        description: `A website built using JavaScript and React to showcase my past programming work.
-            It has links to my resume, email address, GitHub, and LinkedIn
-            and contains descriptions and images of many of the projects I have worked on in the past.`,
+        description: `Built in React and Typescript, this is my personal portfolio website that showcases my skills,
+                    experience, and projects. It features a responsive design and smooth navigation, and is hosted
+                    on AWS.`,
         githubRepoName: "portfolio",
         images: [
+            "portfolio5.png",
             "portfolio0.png",
             "portfolio1.png",
             "portfolio2.png",
@@ -25,16 +26,16 @@ const projects = [
     },
     {
         _id: 1,
-        name: "Food Review",
-        description: `A web application that allows users to sign up with an account in order to create, edit, and share reviews of menu items at restaurants.
-                    Users can search through their own and other users' reviews, upload images of the food, and modify or delete their account.
-                    This application was built using a React/Redux front-end, NodeJS, Express, and MongoDB as the database.`,
+        name: "Food Review Application",
+        description: `A web application that allows users to sign up with an account in order to create and share reviews of menu items at restaurants.
+                    Users can search through their own and other users' reviews, upload images of the food, and interact with other users.
+                    This project was built using a React/Redux front-end, NodeJS, Express, and MongoDB as the database.`,
         githubRepoName: "food-review",
         images: [
             "foodreview0.jpg",
-            //'foodreview1.png',
+            "foodreview1.png",
             "foodreview2.png",
-            //'foodreview3.png',
+            "foodreview3.png",
             "foodreview4.png",
             "foodreview5.png",
             "foodreview6.png",
@@ -77,7 +78,7 @@ const projects = [
             "Numpy",
             "Pandas",
         ],
-        featured: true,
+        featured: false,
     },
     {
         _id: 3,
@@ -98,7 +99,7 @@ const projects = [
         ],
         tags: ["Python", "Tensorflow", "Transfer Learning", "Machine Learning"],
         hidden_tags: ["Keras", "Numpy"],
-        featured: true,
+        featured: false,
     },
     {
         _id: 4,
@@ -111,6 +112,96 @@ const projects = [
         images: ["ema0.png", "ema1.png", "ema2.png", "ema3.png", "ema4.png"],
         tags: ["Java", "Java Swing", "SQL"],
         hidden_tags: ["JDBC", "Object-Oriented", "Employee Management"],
+        featured: false,
+    },
+    // Generates computer science interview questions based on user-specified topics with a React frontend
+    // • Used ChromaDB to retrieve relevant example questions with RAG and insert them into a Google Gemini prompt
+    // • Created a caching system on the server using an in-memory database to store recently generated questions
+    {
+        _id: 5,
+        name: "Computer Science Interview Prep Helper",
+        description: `A web application that helps users prepare for computer science interviews by generating
+                    interview questions based on user-specified topics. The frontend is built using React, while the
+                    backend uses NodeJS and Express. The application utilizes ChromaDB to retrieve relevant example
+                    questions with Retrieval-Augmented Generation (RAG) and incorporates them into a Google Gemini prompt.
+                    Additionally, a caching system is implemented on the server using an in-memory database to store
+                    recently generated questions.`,
+        githubRepoName: "interview-prep",
+        images: ["interviewprep0.png"],
+        tags: [
+            "Google Gemini",
+            "React",
+            "JavaScript",
+            "ChromaDB",
+            "NodeJS",
+            "RAG",
+        ],
+        hidden_tags: [
+            "Full Stack",
+            "Web Design",
+            "Design",
+            "Web Development",
+            "Express.js",
+            "Bootstrap",
+            "LLM",
+        ],
+        featured: true,
+    },
+    {
+        _id: 6,
+        name: "Facial Recognition Attendance System",
+        description: `A facial recognition attendance system designed to identify students in a video stream
+                    and mark them as present by matching them to their official photos using the Inception-ResNet model and
+                    cosine similarity. The backend is built with Flask to manage the database and run the facial recognition
+                    model, while the frontend is developed using React to facilitate user sign-ups and allow teachers to
+                    view student attendance. This project won 1st place in CheeseHacks 2022, a university-wide hackathon.`,
+        githubRepoName: "cheesehacks-2022",
+        images: ["faceattendance0.png"],
+        tags: [
+            "Python",
+            "Inception-ResNet",
+            "Computer Vision",
+            "Flask",
+            "React",
+            "JavaScript",
+        ],
+        hidden_tags: [
+            "Full Stack",
+            "Web Design",
+            "Numpy",
+            "Design",
+            "Web Development",
+            "Bootstrap",
+            "Machine Learning",
+            "CNN",
+        ],
+        featured: true,
+    },
+    // {{Undergraduate Researcher}}{}
+    //     {Madison Experimental Mathematics Lab}{Sep 2023 - Dec 2023}
+    //     \resumeItemListStart
+    //       \item Evaluated recent research on aperiodic tilings and Heesch numbers of polyforms
+    //       \item Developed software for converting polykite tiling problems into boolean satisfiability problems
+    //     \resumeItemListEnd
+    // \item Finds the \textbf{Heesch number} (maximum number of rings around a tile made up of the same tile with no gaps or overlaps) of polykites and polyhexes
+    //   \item Reduced problem from a computational geometry problem to a \textbf{boolean satisfiability} problem in \textbf{Python}, decreasing computation time
+    //   \item Developed 7 types of boolean clauses to model geometric constraints in the problem
+    //   \item Created mathematical and caching optimizations to improve program performance by a factor of 100
+    //   \item Wrote paper and presentation analyzing the results on a dataset of over 3000 non-tiling polykites
+    {
+        _id: 7,
+        name: "Polykite Heesch Number Research",
+        description: `An undergraduate research project conducted at the Madison Experimental Mathematics Lab
+                    focused on evaluating recent research on aperiodic tilings and Heesch numbers of polyforms.
+                    The project involved developing software to convert polykite tiling problems into boolean
+                    satisfiability problems. The research included creating seven types of boolean clauses
+                    to model geometric constraints, implementing optimizations to enhance program
+                    performance by a factor of 100, and analyzing results on a dataset of over 3000
+                    non-tiling polykites.`,
+        githubRepoName: "mxm-aperiodic-monotiles",
+        images: ["heesch0.png"],
+        tags: ["Python", "Computational Geometry", "Numpy"],
+        hidden_tags: ["Boolean Satisfiability", "Research", "Mathematics"],
         featured: true,
     },
 ];
@@ -136,7 +227,9 @@ const getFilteredProjects = (search_vals: Array<string>) => {
 };
 
 const getFeaturedProjects = () => {
-    return projects.filter((project) => project.featured);
+    return projects
+        .filter((project) => project.featured)
+        .sort((project) => project._id);
 };
 
 //gets all projects in the list
