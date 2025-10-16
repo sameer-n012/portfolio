@@ -82,3 +82,6 @@ pids
 
 # Serverless directories
 .serverless
+
+# Zed
+.ropeproject

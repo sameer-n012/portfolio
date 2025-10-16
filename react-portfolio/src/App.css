@@ -1,7 +1,14 @@
 #main {
-    padding: 5rem;
+    padding: 2rem 5rem;
     /* height:5000px; */
     position: relative;
+}
+
+/* On larger screens with header, reduce top padding */
+@media (min-width: 1200px) {
+    #main {
+        padding-top: 2rem;
+    }
 }
 
 #bg-static {
@@ -16,7 +23,8 @@
     top: 0;
     bottom: 0;
     right: auto;
-    width: 100%;
+    /*width: 100%;*/
+    width: 1600px;
     background-image: url("./assets/images/ss1-compressed.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -24,3 +32,28 @@
     background-size: 200%;
     background-position-y: -3000px;
 }
+
+/* Responsive background sizing */
+/*@media (max-width: 1499px) {
+    #bg-dynamic {
+        background-size: 250%;
+        background-position-x: -1200px;
+        background-position-y: -2500px;
+    }
+}
+
+@media (max-width: 1199px) {
+    #bg-dynamic {
+        background-size: 300%;
+        background-position-x: -1000px;
+        background-position-y: -2000px;
+    }
+}
+
+@media (max-width: 767px) {
+    #bg-dynamic {
+        background-size: 400%;
+        background-position-x: -800px;
+        background-position-y: -1500px;
+    }
+}*/

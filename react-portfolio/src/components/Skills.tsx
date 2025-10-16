@@ -1,48 +1,68 @@
-import React from 'react';
-import profileDetails from '../assets/profileDetails';
-import './Skills.css';
+import React from "react";
+import profileDetails from "../assets/profileDetails";
+import "./Skills.css";
 
 const Skills: React.FC = () => {
-  const feedSkills = (skillsPerCol: number): string[][] => {
-    const n = profileDetails.skills.length;
-    const skills: string[][] = [];
-
-    for (let i = 0; i < Math.floor(n / skillsPerCol); i++) {
-      skills.push([]);
-      for (let j = 0; j < n && j < skillsPerCol; j++) {
-        skills[i].push(profileDetails.skills[i * skillsPerCol + j]);
-      }
+    // Strict grid: 4 columns
+    const skillsPerCol = 4;
+    const lang_n = profileDetails.skills.languages.length;
+    const lang_grid: string[][] = [];
+    for (let i = 0; i < Math.ceil(lang_n / skillsPerCol); i++) {
+        lang_grid.push([]);
+        for (let j = 0; j < skillsPerCol; j++) {
+            const idx = i * skillsPerCol + j;
+            if (idx < lang_n) {
+                lang_grid[i].push(profileDetails.skills.languages[idx]);
+            }
+        }
     }
 
-    return skills;
-  };
+    const tool_n = profileDetails.skills.tools.length;
+    const tool_grid: string[][] = [];
+    for (let i = 0; i < Math.ceil(tool_n / skillsPerCol); i++) {
+        tool_grid.push([]);
+        for (let j = 0; j < skillsPerCol; j++) {
+            const idx = i * skillsPerCol + j;
+            if (idx < tool_n) {
+                tool_grid[i].push(profileDetails.skills.tools[idx]);
+            }
+        }
+    }
 
-  const skillsArr = feedSkills(4);
-
-  return (
-    <div id="skills-div">
-      <div id="skills-inner-div">
-        <h1 className="w-100 text-c1 p-2">Skills</h1>
-        <p className="text-light p-2">{profileDetails.aboutMe}</p>
-        <p className="text-light p-2">In the past I've worked with:</p>
-        <div className="d-flex p-2">
-          {skillsArr.map((arr, index) => (
-            <div
-              key={index}
-              className="col-sm-6 d-flex flex-column container-fluid"
-            >
-              {arr.map((skill, skillIndex) => (
-                <div key={skillIndex} className="skill-table-row text-light d-flex">
-                  &gt; &nbsp;
-                  <p className="text-c1 skill-table-cell fira-code">{skill}</p>
+    return (
+        <div id="skills-div">
+            <div id="skills-inner-div m-0">
+                <h1 className="skills-title text-c1">Skills</h1>
+                <p className="skills-about">{profileDetails.aboutMe}</p>
+                <p className="skills-subtitle">In the past I've worked with:</p>
+                <div className="skills-table">
+                    {lang_grid.map((row, rowIdx) => (
+                        <div key={rowIdx} className="skills-table-row">
+                            {row.map((skill, colIdx) => (
+                                <div key={colIdx} className="skills-table-cell">
+                                    <span className="skills-prefix">&gt;</span>{" "}
+                                    <span className="skills-text">{skill}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </div>
-              ))}
+                {/*<p className="skills-subtitle">and worked with:</p>*/}
+                <div className="skills-table">
+                    {tool_grid.map((row, rowIdx) => (
+                        <div key={rowIdx} className="skills-table-row">
+                            {row.map((skill, colIdx) => (
+                                <div key={colIdx} className="skills-table-cell">
+                                    <span className="skills-prefix">&gt;</span>{" "}
+                                    <span className="skills-text">{skill}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
-          ))}
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Skills;

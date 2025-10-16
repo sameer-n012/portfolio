@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
@@ -7,14 +7,16 @@ import "./Title.css";
 
 const Title: React.FC = () => {
     const taglineReplaceRef = useRef<HTMLParagraphElement>(null);
+    const [displayText, setDisplayText] = useState("build apps.");
+    const [currentTaglineIndex, setCurrentTaglineIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [charIndex, setCharIndex] = useState("build apps.".length);
 
     const socials = [
         { icon: faEnvelope, url: `mailto:${profileDetails.email}` },
         { icon: faLinkedin, url: profileDetails.linkedinURL },
         { icon: faGithub, url: profileDetails.githubURL },
     ];
-
-    const taglines = ["build apps.", "explore data.", "find solutions."];
 
     useEffect(() => {
         const handleScroll = () => {
@@ -46,38 +48,49 @@ const Title: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const updateTagline = async () => {
-            let c = 1;
-            const taglineEl = taglineReplaceRef.current;
+        const taglines = ["build apps", "explore data", "find solutions"];
 
-            if (!taglineEl) return;
+        const currentText = taglines[currentTaglineIndex] + ".";
+        let timeout: NodeJS.Timeout;
 
-            const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-            while (true) {
-                let curText = taglineEl.innerHTML;
-
-                while (curText !== "") {
-                    await sleep(Math.floor(Math.random() * 50 + 50));
-                    curText = curText.substring(0, curText.length - 1);
-                    taglineEl.innerHTML = curText;
-                }
-
-                await sleep(1000);
-
-                for (let i = 0; i < taglines[c].length; i++) {
-                    await sleep(Math.floor(Math.random() * 100 + 50));
-                    curText += taglines[c][i];
-                    taglineEl.innerHTML = curText;
-                }
-
-                c = (c + 1) % taglines.length;
-                await sleep(3000);
+        if (isDeleting) {
+            if (charIndex > 0) {
+                timeout = setTimeout(
+                    () => {
+                        setCharIndex(charIndex - 1);
+                        setDisplayText(currentText.substring(0, charIndex - 1));
+                    },
+                    50 + Math.random() * 50,
+                );
+            } else {
+                // finished deleting, wait then start typing next
+                timeout = setTimeout(() => {
+                    setIsDeleting(false);
+                    setCurrentTaglineIndex(
+                        (prev) => (prev + 1) % taglines.length,
+                    );
+                    setCharIndex(0);
+                }, 1000);
             }
-        };
+        } else {
+            if (charIndex < currentText.length) {
+                timeout = setTimeout(
+                    () => {
+                        setCharIndex(charIndex + 1);
+                        setDisplayText(currentText.substring(0, charIndex + 1));
+                    },
+                    50 + Math.random() * 100,
+                );
+            } else {
+                // finished typing, wait then start deleting
+                timeout = setTimeout(() => {
+                    setIsDeleting(true);
+                }, 3000);
+            }
+        }
 
-        updateTagline();
-    }, [taglines]);
+        return () => clearTimeout(timeout);
+    }, [charIndex, isDeleting, currentTaglineIndex]);
 
     const scrollTo = (elementId: string) => {
         if (elementId.startsWith("#")) {
@@ -96,8 +109,8 @@ const Title: React.FC = () => {
     return (
         <div id="title-div">
             <div
-                style={{ marginTop: "10rem" }}
-                className="d-flex justify-content-between align-items-center flex-wrap flex-row-reverse"
+                style={{ marginTop: "8rem" }}
+                className="d-flex justify-content-between align-items-center flex-wrap flex-row-reverse title-container"
             >
                 <img
                     src={`/assets/images/${profileDetails.profileImgName}`}
@@ -105,11 +118,11 @@ const Title: React.FC = () => {
                     className="rounded-circle border-thick-c1"
                     alt="my portrait"
                 />
-                <div>
+                <div className="title-content">
                     <h1 className="text-c1 fira-code" id="name">
                         Sameer Narendran
                     </h1>
-                    <div className="d-flex flex-row">
+                    <div className="d-flex flex-row" id="tagline-container">
                         <p className="text-c1 fira-code" id="tagline">
                             I like to&nbsp;
                         </p>
@@ -118,7 +131,7 @@ const Title: React.FC = () => {
                             id="tagline-replace"
                             className="text-c1 fira-code"
                         >
-                            {taglines[0]}
+                            {displayText}
                         </p>
                     </div>
                     <div id="title-socials-div" className="text-light d-flex">
@@ -128,7 +141,7 @@ const Title: React.FC = () => {
                                 href={social.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="me-4"
+                                className="me-4 align-self-center"
                             >
                                 <FontAwesomeIcon
                                     className="title-social"
@@ -148,7 +161,7 @@ const Title: React.FC = () => {
             </div>
             <img
                 id="scroll-down-chevron"
-                onClick={() => scrollTo("#toc-div")}
+                onClick={() => scrollTo("#skills-div")}
                 src="/assets/images/down_chevron.png"
                 alt="Scroll down"
             />

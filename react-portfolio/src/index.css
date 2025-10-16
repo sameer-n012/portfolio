@@ -14,6 +14,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Add padding only for screens 1200px and above */
+@media (min-width: 1200px) {
+    body {
+        padding-top: 80px;
+    }
+}
+
 code {
     font-family: "Fira Code", monospace;
 }

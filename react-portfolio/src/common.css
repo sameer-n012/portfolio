@@ -10,6 +10,30 @@
     border: 2px solid #38bdae;
 }
 
+.border-bottom-c1-translucent {
+    border-bottom: 2px solid rgba(56, 189, 174, 0.5);
+}
+
+.glass-background-black {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+.glass-background-black-thick {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.glass-background-c2 {
+    background-color: rgba(51, 51, 51, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+.glass-background-c2-thick {
+    background-color: rgba(51, 51, 51, 0.6);
+    backdrop-filter: blur(10px);
+}
+
 .border-thick-c1 {
     border: 5px solid #38bdae;
 }
@@ -27,3 +51,13 @@
 .fira-code {
     font-family: "Fira Code", monospace;
 }
+
+.no-border {
+    border: none;
+}
+
+.no-background {
+    background: none;
+}
+
+/* classes for education/experience cards + tabs*/

@@ -1,5 +1,13 @@
 #title-div {
-    min-height: 80vh
+    min-height: 80vh;
+}
+
+/*.title-container {
+    padding: 0 2rem;
+}*/
+
+.title-content {
+    flex: 1;
 }
 
 #name {
@@ -9,17 +17,18 @@
 
 #tagline {
     font-size: 2rem;
-    font-weight: 300
+    font-weight: 300;
 }
 
 #tagline-replace {
     font-size: 2rem;
-    font-weight: 300
+    font-weight: 300;
 }
 
 .title-social {
     font-size: 2rem;
     font-weight: 300;
+    margin-bottom: 0;
 }
 
 .title-social:hover {
@@ -36,9 +45,123 @@
 
 #scroll-down-chevron {
     position: absolute;
-    top: 84vh;
-    left: 46vw;
+    top: 80vh;
+    /*left: 46vw;*/
+    left: calc(50% - max(8vh, 50px) / 2);
     aspect-ratio: 1;
     height: max(8vh, 50px);
     cursor: pointer;
+}
+
+/* Medium screens (1200px - 1499px): Scale down elements */
+@media (max-width: 1499px) and (min-width: 1200px) {
+    #name {
+        font-size: 4rem;
+    }
+
+    #tagline,
+    #tagline-replace {
+        font-size: 1.6rem;
+    }
+
+    .title-social {
+        font-size: 1.6rem;
+    }
+
+    #portrait-img {
+        width: 20rem;
+        margin-right: 8%;
+    }
+}
+
+/* Small screens (768px - 1199px): Stack vertically, center everything */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .title-container {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    #portrait-img {
+        width: 18rem;
+        margin-right: 0;
+        margin-bottom: 1rem;
+        order: -1;
+    }
+
+    #name {
+        font-size: 3.5rem;
+    }
+
+    #tagline-container {
+        justify-content: center;
+    }
+
+    #tagline,
+    #tagline-replace {
+        font-size: 1.4rem;
+    }
+
+    .title-social {
+        font-size: 1.4rem;
+    }
+
+    #title-socials-div {
+        justify-content: center;
+    }
+
+    #scroll-down-chevron {
+        /*display: none;*/
+        top: 90vh;
+    }
+}
+
+/* Extra small screens (<768px): Mobile layout */
+@media (max-width: 767px) {
+    .title-container {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    #title-div {
+        min-height: 90vh;
+    }
+
+    #portrait-img {
+        width: 15rem;
+        margin-right: 0;
+        margin-bottom: 1rem;
+        order: -1;
+    }
+
+    #name {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    #tagline-container {
+        justify-content: center;
+    }
+
+    #tagline,
+    #tagline-replace {
+        font-size: 1.2rem;
+    }
+
+    .title-social {
+        font-size: 1.2rem;
+    }
+
+    #title-socials-div {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    #scroll-down-chevron {
+        /*display: none;*/
+        top: 90vh;
+    }
 }
