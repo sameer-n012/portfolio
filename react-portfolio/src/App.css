@@ -26,6 +26,7 @@
     /*width: 100%;*/
     width: 1600px;
     background-image: url("./assets/images/ss1-compressed.jpg");
+    /*background: rgb(3, 17, 32);*/
     background-position: center;
     background-repeat: no-repeat;
     background-position-x: -1400px;

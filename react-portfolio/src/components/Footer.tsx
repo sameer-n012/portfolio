@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
     return (
         <div id="footer-div">
             <div id="footer-inner-div">
-                <div className="d-flex pt-5 text-light justify-content-between">
+                <div id="footer-container" className="d-flex pt-5 text-light">
                     <a
                         href={profileDetails.projectSourceURL}
                         className="footer-link"

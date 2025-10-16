@@ -11,3 +11,16 @@
 .footer-link:hover {
     filter: brightness(50%);
 }
+
+#footer-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+    #footer-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+}

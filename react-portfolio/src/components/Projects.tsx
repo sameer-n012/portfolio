@@ -1,70 +1,139 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight } from "@fortawesome/free-regular-svg-icons";
-import { getFeaturedProjects, getFilteredProjects } from "../assets/projects";
-import ProjectCard from "./ProjectCard";
+import React, { useState, useEffect, useRef } from "react";
+import { getFeaturedProjects } from "../assets/projects";
 import "./Projects.css";
 
 const Projects: React.FC = () => {
-    const [projList, setProjList] = useState(getFeaturedProjects());
-    const [searchVal, setSearchVal] = useState("");
+    const projects = getFeaturedProjects();
+    const [currentIdx, setCurrentIdx] = useState(0);
+    const carouselInterval = useRef<NodeJS.Timeout | null>(null);
 
-    const tagClick = (tag: string) => {
-        setProjList(getFilteredProjects([tag]));
-        setSearchVal(tag);
+    // Helper for circular index
+    const getCircularIdx = (idx: number) => {
+        const len = projects.length;
+        return ((idx % len) + len) % len;
     };
 
-    const search = (value: string) => {
-        setProjList(getFilteredProjects(value.replace(",", " ").split(" ")));
+    const getCircularDistance = (from: number, to: number) => {
+        const len = projects.length;
+        const directDist = to - from;
+        const wrappedDist =
+            directDist > 0 ? directDist - len : directDist + len;
+        return Math.abs(directDist) < Math.abs(wrappedDist)
+            ? directDist
+            : wrappedDist;
     };
 
-    const searchKeyPress = (
-        e: React.KeyboardEvent<HTMLInputElement>,
-        data: string,
-    ) => {
-        if (e.key === "Enter") {
-            console.log("detected enter press");
-            search(data);
-        }
+    const getSurrounding = () => {
+        console.log(currentIdx);
+        const idxs = Array.from(Array(5).keys())
+            .map((k) => k - 2)
+            .map((x) => getCircularIdx(currentIdx + x));
+
+        console.log(idxs);
+        return idxs.map((idx) => ({
+            actualIdx: currentIdx + idx,
+            project: projects[idx],
+        }));
     };
 
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchVal(e.target.value);
-    };
+    useEffect(() => {
+        const interval_ms = 4000;
+        // autoscroll
+        carouselInterval.current = setInterval(() => {
+            setCurrentIdx((prev) => getCircularIdx(prev + 1));
+        }, interval_ms);
+        return () => {
+            if (carouselInterval.current)
+                clearInterval(carouselInterval.current);
+        };
+    }, [projects.length]);
+
+    const currIdxInSurrounding = 2;
 
     return (
         <div id="projects-div">
             <div id="projects-inner-div">
-                <h1 className="w-100 text-c1 p-2">Projects</h1>
-                <div className="w-100 d-flex justify-content-center flex-column">
-                    <div
-                        id="projects-search-div"
-                        className="d-flex justify-content-center p-2 pt-3"
-                    >
-                        <input
-                            className="search-bar me-1 w-50"
-                            id="projects-search-bar"
-                            placeholder="Search"
-                            onKeyDown={(e) => searchKeyPress(e, searchVal)}
-                            value={searchVal}
-                            onChange={handleSearchChange}
-                        />
-                        <button
-                            id="projects-search-btn"
-                            type="submit"
-                            className="ms-1 background-c1"
-                            onClick={() => search(searchVal)}
-                        >
-                            <FontAwesomeIcon icon={faArrowAltCircleRight} />
-                        </button>
-                    </div>
-                    <div className="project-cards p-2 pt-4 d-flex w-100 justify-content-evenly flex-wrap">
-                        {projList.map((project) => (
-                            <div key={project._id} className="p-3">
-                                <ProjectCard
-                                    project={project}
-                                    onTagClick={tagClick}
-                                />
+                <div className="projects-title-row">
+                    <h1 className="projects-title w-100 text-c1 p-2 mb-4">
+                        Projects
+                    </h1>
+                </div>
+                <div className="projects-carousel-container">
+                    <div className="projects-carousel">
+                        {getSurrounding().map((item, idx) => (
+                            <div
+                                key={item.project._id}
+                                className={`projects-carousel-card glass-background-c2${idx === currIdxInSurrounding ? "-thick" : ""} cursor-clickable ${idx === currIdxInSurrounding ? "active" : ""}`}
+                                style={{
+                                    // Calculate circular offset
+                                    transform: `translateX(${(idx - 2) * 110 - 50}%)`,
+                                    zIndex: idx === currentIdx ? 2 : 1,
+                                    cursor:
+                                        idx === currentIdx
+                                            ? "default"
+                                            : "pointer",
+                                    display:
+                                        getCircularDistance(
+                                            idx,
+                                            currIdxInSurrounding,
+                                        ) > 2
+                                            ? "none"
+                                            : "flex",
+                                }}
+                                // onClick={() => {
+                                //     if (idx !== currIdxInSurrounding)
+                                //         setCurrentIdx(item.actualIdx);
+                                // }}
+                            >
+                                <div className="projects-carousel-container">
+                                    <div className="projects-carousel-title">
+                                        <h3 className="projects-carousel-name text-c1">
+                                            {item.project.name}
+                                        </h3>
+                                    </div>
+                                    {/*add project tags here as badges*/}
+                                    <div className="projects-carousel-image-container">
+                                        <img
+                                            src={`/assets/images/${item.project.images[0]}`}
+                                            alt={item.project.name}
+                                            className="projects-carousel-image"
+                                        />
+                                    </div>
+                                </div>
+                                {idx === currIdxInSurrounding ? (
+                                    <div className="projects-carousel-overlay">
+                                        <div className="projects-carousel-details text-align-center">
+                                            <h3 className="projects-carousel-name text-c1">
+                                                {item.project.name}
+                                            </h3>
+                                            <p className="projects-carousel-description text-light">
+                                                {item.project.description}
+                                            </p>
+                                            <div className="projects-carousel-tags">
+                                                {item.project.tags.map(
+                                                    (tag, tagIdx) => (
+                                                        <span
+                                                            key={tagIdx}
+                                                            className="projects-tag"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ),
+                                                )}
+                                            </div>
+                                            {item.project.githubRepoName && (
+                                                <a
+                                                    href={`https://github.com/sameer-n012/${item.project.githubRepoName}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="projects-link text-c1"
+                                                >
+                                                    View Source
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                ) : null}
                             </div>
                         ))}
                     </div>
