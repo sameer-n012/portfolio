@@ -6,6 +6,7 @@ const Projects: React.FC = () => {
     const projects = getFeaturedProjects();
     const [currentIdx, setCurrentIdx] = useState(3);
     const carouselInterval = useRef<NodeJS.Timeout | null>(null);
+    const [direction, setDirection] = useState<1 | -1>(1);
 
     // Helper for circular index
     const getCircularIdx = (idx: number) => {
@@ -31,22 +32,29 @@ const Projects: React.FC = () => {
 
         console.log(idxs);
         return idxs.map((idx) => ({
-            actualIdx: currentIdx + idx,
+            actualIdx: idx,
             project: projects[idx],
         }));
     };
 
     const scrollIntervalMS = 4000;
 
-    useEffect(() => {
-        // autoscroll
+    const startInterval = () => {
+        if (carouselInterval.current) clearInterval(carouselInterval.current);
         carouselInterval.current = setInterval(() => {
             setCurrentIdx((prev) => getCircularIdx(prev + 1));
         }, scrollIntervalMS);
-        return () => {
-            if (carouselInterval.current)
-                clearInterval(carouselInterval.current);
-        };
+    };
+
+    const stopInterval = () => {
+        if (carouselInterval.current) clearInterval(carouselInterval.current);
+        carouselInterval.current = null;
+    };
+
+    useEffect(() => {
+        // autoscroll
+        startInterval();
+        return () => stopInterval();
     }, [projects.length]);
 
     const currIdxInSurrounding = 2;
@@ -67,43 +75,48 @@ const Projects: React.FC = () => {
                                 className={`projects-carousel-card glass-background-c2${idx === currIdxInSurrounding ? "-thick" : ""} cursor-clickable ${idx === currIdxInSurrounding ? "active" : ""}`}
                                 style={{
                                     // Calculate circular offset
-                                    transform: `translateX(${(idx - 2) * 110 - 50}%)`,
+                                    transform: `translateX(${(idx - currIdxInSurrounding) * 110 - 50}%)`,
+                                    transition:
+                                        Math.abs(
+                                            idx +
+                                                direction -
+                                                currIdxInSurrounding,
+                                        ) > 2
+                                            ? "none"
+                                            : "opacity 0.7s ease, transform 0.7s ease",
                                     zIndex: idx === currentIdx ? 2 : 1,
                                     cursor:
                                         idx === currentIdx
                                             ? "default"
                                             : "pointer",
-                                    display:
-                                        getCircularDistance(
-                                            idx,
-                                            currIdxInSurrounding,
-                                        ) > 2
-                                            ? "none"
-                                            : "flex",
+                                    opacity:
+                                        (Math.abs(idx - currIdxInSurrounding) >=
+                                            2 &&
+                                            idx > currIdxInSurrounding) || // 2nd next
+                                        (Math.abs(idx - currIdxInSurrounding) >
+                                            2 &&
+                                            idx < currIdxInSurrounding) // 2nd prev
+                                            ? 0
+                                            : 1,
                                 }}
-                                // onClick={() => {
-                                //     if (idx !== currIdxInSurrounding)
-                                //         setCurrentIdx(item.actualIdx);
-                                // }}
                                 onMouseEnter={() => {
                                     if (idx === currIdxInSurrounding) {
-                                        if (carouselInterval.current)
-                                            clearInterval(
-                                                carouselInterval.current,
-                                            );
+                                        stopInterval();
                                     }
                                 }}
                                 onMouseLeave={() => {
                                     if (idx === currIdxInSurrounding) {
-                                        // autoscroll
-                                        carouselInterval.current = setInterval(
-                                            () => {
-                                                setCurrentIdx((prev) =>
-                                                    getCircularIdx(prev + 1),
-                                                );
-                                            },
-                                            scrollIntervalMS,
+                                        startInterval();
+                                    }
+                                }}
+                                onClick={() => {
+                                    if (idx !== currIdxInSurrounding) {
+                                        stopInterval();
+                                        setDirection(
+                                            idx < currIdxInSurrounding ? -1 : 1,
                                         );
+                                        setCurrentIdx(item.actualIdx);
+                                        startInterval();
                                     }
                                 }}
                             >
