@@ -1,0 +1,489 @@
+/* --- Theme: dark instrumentation console --- */
+:root {
+    --bg: #0a0c0a;
+    --surface: #121513;
+    --ink: #e7eae4;
+    --muted: #7c8579;
+    --phosphor: #4ce0b3;
+    --amber: #ffb454;
+    --rule: #232823;
+
+    --font-sans: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+    --measure: 640px;
+    --fast: 0.15s ease;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+}
+
+/* Faint scanline + grid texture — a CRT/instrumentation cue, kept subtle */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(76, 224, 179, 0.025) 0px,
+            rgba(76, 224, 179, 0.025) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        linear-gradient(rgba(76, 224, 179, 0.035) 1px, transparent 1px),
+        linear-gradient(
+            90deg,
+            rgba(76, 224, 179, 0.035) 1px,
+            transparent 1px
+        );
+    background-size:
+        100% 3px,
+        48px 48px,
+        48px 48px;
+}
+
+a {
+    color: var(--phosphor);
+    text-decoration-color: rgba(76, 224, 179, 0.35);
+}
+
+a:hover {
+    text-decoration-color: var(--phosphor);
+}
+
+a:focus-visible,
+button:focus-visible,
+span[tabindex]:focus-visible {
+    outline: 2px solid var(--phosphor);
+    outline-offset: 2px;
+}
+
+/* --- Scroll progress (persistent signal-trace, extends the ruler motif) --- */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--rule);
+    z-index: 50;
+}
+
+.scroll-progress span {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: var(--phosphor);
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+/* --- Layout --- */
+
+.page {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 4.5rem 1.75rem 5rem;
+}
+
+.block {
+    margin-bottom: 4rem;
+    max-width: var(--measure);
+}
+
+.block h2 {
+    font-family: var(--font-mono);
+    font-size: 0.98rem;
+    font-weight: 500;
+    text-transform: lowercase;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+}
+
+.block h2::before {
+    content: "// ";
+    color: var(--phosphor);
+}
+
+/* --- Masthead --- */
+
+.masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.masthead-text h1 {
+    font-family: var(--font-mono);
+    font-size: clamp(1.9rem, 4vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+}
+
+.role {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--phosphor);
+    margin-top: 0.5rem;
+}
+
+.cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    background: var(--phosphor);
+    margin-left: 0.15em;
+    transform: translateY(0.15em);
+    animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+    0%,
+    49% {
+        opacity: 1;
+    }
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.tagline {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: 0.9rem;
+    max-width: 46ch;
+}
+
+.contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+    margin-top: 1.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.contact-links a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: border-color var(--fast);
+}
+
+.contact-links a:hover {
+    border-color: var(--phosphor);
+    color: var(--phosphor);
+}
+
+.masthead-photo {
+    flex-shrink: 0;
+    width: 148px;
+    height: 148px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid var(--phosphor);
+}
+
+/* --- Ruler divider (single load-in motion) --- */
+
+.ruler {
+    margin: 2.5rem 0 3.5rem;
+    height: 1px;
+    background: var(--rule);
+    position: relative;
+    overflow: hidden;
+}
+
+.ruler span {
+    position: absolute;
+    inset: 0;
+    background: var(--phosphor);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: sweep 0.9s 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes sweep {
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* --- About --- */
+
+.about-body p {
+    color: var(--ink);
+    margin-bottom: 1rem;
+}
+
+.about-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* --- Stacked entries (experience / projects / education) --- */
+
+.stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.entry {
+    padding: 1.6rem 0 1.6rem 1rem;
+    border-top: 1px solid var(--rule);
+    border-left: 2px solid transparent;
+    transition: border-left-color var(--fast);
+}
+
+.stack .entry:first-child {
+    border-top: none;
+}
+
+.entry:hover {
+    border-left-color: var(--phosphor);
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.entry-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+}
+
+.entry-date {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.entry-subtitle {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+}
+
+.entry-body {
+    margin-top: 0.85rem;
+}
+
+.entry-body ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.entry-body li {
+    position: relative;
+    padding-left: 1.1rem;
+    color: var(--ink);
+}
+
+.entry-body li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 5px;
+    background: var(--phosphor);
+}
+
+/* --- Projects --- */
+
+.entry-metric {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.92rem;
+    color: var(--amber);
+    white-space: nowrap;
+}
+
+.entry-tags {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.entry-tags span {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    padding: 0.2rem 0.55rem;
+    transition:
+        border-color var(--fast),
+        color var(--fast);
+}
+
+.entry:hover .entry-tags span {
+    border-color: var(--rule);
+}
+
+.entry-tags span:hover {
+    border-color: var(--phosphor);
+    color: var(--phosphor);
+    animation: flicker 0.3s steps(2, end);
+}
+
+/* A CRT pixel waking up, rather than a smooth fade */
+@keyframes flicker {
+    0% {
+        opacity: 0.35;
+    }
+    30% {
+        opacity: 1;
+    }
+    45% {
+        opacity: 0.5;
+    }
+    65% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.entry-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+.entry-image {
+    margin-top: 1rem;
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.entry-image img {
+    max-width: 100%;
+    max-height: 320px;
+    border: 1px solid var(--rule);
+    display: block;
+    /* Even, light dimming so a white-background screenshot doesn't blaze
+       against the dark page — no vignette, just a flat filter. */
+    filter: brightness(0.9) saturate(0.9);
+}
+
+/* Scope-bezel corner ticks, echoing the instrumentation theme */
+.entry-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    --tick: 14px;
+    background:
+        linear-gradient(var(--phosphor), var(--phosphor)) top left / var(
+                --tick
+            )
+            2px no-repeat,
+        linear-gradient(var(--phosphor), var(--phosphor)) top left / 2px var(
+                --tick
+            )
+            no-repeat,
+        linear-gradient(var(--phosphor), var(--phosphor)) bottom right /
+            var(--tick) 2px no-repeat,
+        linear-gradient(var(--phosphor), var(--phosphor)) bottom right / 2px
+            var(--tick) no-repeat;
+    opacity: 0.7;
+}
+
+/* --- Skills --- */
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.7rem;
+}
+
+.skills-list span {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+}
+
+/* --- Footer --- */
+
+.site-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 640px) {
+    .page {
+        padding: 3rem 1.25rem 3.5rem;
+    }
+
+    .masthead {
+        flex-direction: column-reverse;
+    }
+
+    .masthead-photo {
+        width: 108px;
+        height: 108px;
+    }
+
+    .entry-header {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+}
